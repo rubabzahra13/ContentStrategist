@@ -1,0 +1,13 @@
+# OpenAI Configuration (Required)
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Serper API for trend analysis (Optional)
+SERPER_API_KEY=your_serper_api_key_here
+
+# Supabase Configuration (Optional - for caching)
+SUPABASE_URL=your_supabase_url_here
+SUPABASE_KEY=your_supabase_anon_key_here
+
+# Flask Configuration
+FLASK_ENV=production
+PORT=5000
