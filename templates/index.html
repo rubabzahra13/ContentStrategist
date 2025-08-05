@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="hero-section text-center text-white">
+                <h1 class="display-4 fw-bold mb-4">
+                    <i class="fas fa-magic me-3"></i>
+                    AI Content Calendar Generator
+                </h1>
+                <p class="lead mb-4">
+                    Generate a professional 30-day Instagram Reels content calendar 
+                    tailored for entrepreneurs scaling with AI and business strategy.
+                </p>
+                <div class="row text-center mb-4">
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h5>AI-Powered</h5>
+                        <p class="small">GPT-4 generates strategic content</p>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="feature-icon">
+                            <i class="fas fa-trending-up"></i>
+                        </div>
+                        <h5>Trending Topics</h5>
+                        <p class="small">Real-time trend analysis</p>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-excel"></i>
+                        </div>
+                        <h5>Excel Export</h5>
+                        <p class="small">Professional formatted calendar</p>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="feature-icon">
+                            <i class="fas fa-spell-check"></i>
+                        </div>
+                        <h5>Smart Input</h5>
+                        <p class="small">Handles typos automatically</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generation Form -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body p-5">
+                    <h3 class="card-title text-center mb-4">
+                        <i class="fas fa-calendar-alt me-2 text-primary"></i>
+                        Generate Your Content Calendar
+                    </h3>
+                    
+                    <form method="POST" action="{{ url_for('generate_calendar') }}">
+                        <div class="mb-4">
+                            <label for="month" class="form-label fw-bold">
+                                <i class="fas fa-calendar me-2"></i>
+                                Enter Month and Year
+                            </label>
+                            <input type="text" 
+                                   class="form-control form-control-lg" 
+                                   id="month" 
+                                   name="month" 
+                                   placeholder="e.g., August 2025, March 2024, or even 'ajguzt 2025'" 
+                                   required
+                                   autocomplete="off">
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Don't worry about spelling - our AI handles typos like "ajguzt", "sepember", "julu", etc.
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-magic me-2"></i>
+                                Generate Content Calendar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body p-4">
+                    <h4 class="text-center mb-4">
+                        <i class="fas fa-star me-2 text-warning"></i>
+                        What You Get
+                    </h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="mb-1">Strategic Content</h6>
+                                    <p class="mb-0 small text-muted">30-day calendar with scroll-stopping hooks and conversion-focused CTAs</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="mb-1">Professional Format</h6>
+                                    <p class="mb-0 small text-muted">Excel file with timing breakdowns, production notes, and optimization tips</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="mb-1">Time-Aware Trends</h6>
+                                    <p class="mb-0 small text-muted">Different strategies for past, present, and future months</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="mb-1">Instant Results</h6>
+                                    <p class="mb-0 small text-muted">Smart caching for instant access to previously generated calendars</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Examples Section -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body p-4">
+                    <h5 class="text-center mb-3">
+                        <i class="fas fa-lightbulb me-2 text-warning"></i>
+                        Example Input Formats
+                    </h5>
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-2">
+                            <span class="badge bg-light text-dark p-2">August 2025</span>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <span class="badge bg-light text-dark p-2">ajguzt 2024</span>
+                        </div>
+                        <div class="col-md-4 mb-2">
+                            <span class="badge bg-light text-dark p-2">March</span>
+                        </div>
+                    </div>
+                    <p class="text-center text-muted small mb-0 mt-2">
+                        All of these work perfectly! Our AI normalizes any spelling variations.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Auto-focus on the input field
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('month').focus();
+});
+
+// Add some interactivity to the form
+document.getElementById('month').addEventListener('input', function(e) {
+    const value = e.target.value.toLowerCase();
+    const formText = e.target.parentElement.querySelector('.form-text');
+    
+    // Show helpful hints based on input
+    if (value.includes('ajguzt') || value.includes('auzhst')) {
+        formText.innerHTML = '<i class="fas fa-magic me-1 text-success"></i>Great! I can fix that spelling - that\'s "August"';
+    } else if (value.includes('julu')) {
+        formText.innerHTML = '<i class="fas fa-magic me-1 text-success"></i>Perfect! I understand that\'s "July"';
+    } else if (value.includes('sepember')) {
+        formText.innerHTML = '<i class="fas fa-magic me-1 text-success"></i>No problem! I know you mean "September"';
+    } else {
+        formText.innerHTML = '<i class="fas fa-info-circle me-1"></i>Don\'t worry about spelling - our AI handles typos like "ajguzt", "sepember", "julu", etc.';
+    }
+});
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.badge {
+    font-size: 0.9rem;
+}
+</style>
+{% endblock %}

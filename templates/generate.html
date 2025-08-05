@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+
+{% block title %}Generating Calendar - AI Content Strategist{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body p-5 text-center">
+                    <h2 class="mb-4">
+                        <i class="fas fa-magic me-2 text-primary"></i>
+                        Generating Your Content Calendar
+                    </h2>
+                    
+                    <div class="mb-4">
+                        <p class="lead">
+                            Creating strategic content for 
+                            <strong class="text-primary">{{ month }}</strong>
+                        </p>
+                        {% if raw_month != month %}
+                        <p class="text-muted">
+                            <i class="fas fa-spell-check me-1"></i>
+                            Normalized "{{ raw_month }}" to "{{ month }}"
+                        </p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Progress Section -->
+                    <div class="mb-4">
+                        <div class="progress mb-3" style="height: 15px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                 id="progressBar" 
+                                 role="progressbar" 
+                                 style="width: 0%">
+                            </div>
+                        </div>
+                        <p id="statusMessage" class="mb-0">
+                            <i class="fas fa-spinner fa-spin me-2"></i>
+                            Initializing...
+                        </p>
+                    </div>
+
+                    <!-- Status Icons -->
+                    <div class="row mb-4" id="statusIcons">
+                        <div class="col-6 col-md-3 mb-3">
+                            <div id="icon-checking" class="status-icon">
+                                <i class="fas fa-search fa-2x text-muted"></i>
+                                <p class="small mt-2">Checking Cache</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <div id="icon-trends" class="status-icon">
+                                <i class="fas fa-trending-up fa-2x text-muted"></i>
+                                <p class="small mt-2">Fetching Trends</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <div id="icon-ai" class="status-icon">
+                                <i class="fas fa-robot fa-2x text-muted"></i>
+                                <p class="small mt-2">AI Generation</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-3">
+                            <div id="icon-excel" class="status-icon">
+                                <i class="fas fa-file-excel fa-2x text-muted"></i>
+                                <p class="small mt-2">Creating Excel</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Section (Hidden initially) -->
+                    <div id="resultsSection" class="d-none">
+                        <div class="alert alert-success">
+                            <h4 class="alert-heading">
+                                <i class="fas fa-check-circle me-2"></i>
+                                Calendar Ready!
+                            </h4>
+                            <p id="resultsMessage" class="mb-3"></p>
+                            <div id="trendWarning" class="small text-muted mb-3"></div>
+                            <a id="downloadBtn" href="#" class="btn btn-success btn-lg">
+                                <i class="fas fa-download me-2"></i>
+                                Download Excel Calendar
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Error Section (Hidden initially) -->
+                    <div id="errorSection" class="d-none">
+                        <div class="alert alert-danger">
+                            <h4 class="alert-heading">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                Generation Failed
+                            </h4>
+                            <p id="errorMessage" class="mb-3"></p>
+                            <a href="{{ url_for('index') }}" class="btn btn-primary">
+                                <i class="fas fa-arrow-left me-2"></i>
+                                Try Again
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Loading Animation -->
+                    <div id="loadingSection">
+                        <div class="spinner-border text-primary mb-3" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="text-muted">
+                            This may take 30-60 seconds depending on AI response time...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const sessionId = '{{ session_id }}';
+let pollInterval;
+
+// Status icon mapping
+const statusIcons = {
+    'checking_cache': 'icon-checking',
+    'fetching_trends': 'icon-trends', 
+    'generating_content': 'icon-ai',
+    'creating_excel': 'icon-excel'
+};
+
+function updateStatusIcon(status) {
+    // Reset all icons
+    Object.values(statusIcons).forEach(iconId => {
+        const icon = document.getElementById(iconId);
+        if (icon) {
+            const iconElement = icon.querySelector('i');
+            iconElement.className = iconElement.className.replace('text-success', 'text-muted');
+        }
+    });
+    
+    // Highlight current status
+    const currentIconId = statusIcons[status];
+    if (currentIconId) {
+        const icon = document.getElementById(currentIconId);
+        if (icon) {
+            const iconElement = icon.querySelector('i');
+            iconElement.className = iconElement.className.replace('text-muted', 'text-success');
+        }
+    }
+}
+
+function pollStatus() {
+    fetch(`/status/${sessionId}`)
+        .then(response => response.json())
+        .then(data => {
+            // Update progress bar
+            document.getElementById('progressBar').style.width = data.progress + '%';
+            document.getElementById('statusMessage').innerHTML = 
+                `<i class="fas fa-spinner fa-spin me-2"></i>${data.message}`;
+            
+            // Update status icons
+            updateStatusIcon(data.status);
+            
+            if (data.status === 'completed') {
+                clearInterval(pollInterval);
+                showResults(data);
+            } else if (data.status === 'error') {
+                clearInterval(pollInterval);
+                showError(data);
+            }
+        })
+        .catch(error => {
+            console.error('Polling error:', error);
+            clearInterval(pollInterval);
+            showError({message: 'Connection error occurred'});
+        });
+}
+
+function showResults(data) {
+    document.getElementById('loadingSection').classList.add('d-none');
+    document.getElementById('resultsSection').classList.remove('d-none');
+    
+    // Update results message
+    let message = `Successfully generated a ${data.content_rows}-day content calendar for ${data.month}!`;
+    if (data.cached_url) {
+        message = `Found cached calendar for ${data.month}! Ready for download.`;
+    }
+    document.getElementById('resultsMessage').textContent = message;
+    
+    // Show trend warning if available
+    if (data.trend_warning) {
+        document.getElementById('trendWarning').textContent = data.trend_warning;
+    }
+    
+    // Set download link
+    document.getElementById('downloadBtn').href = `/download/${sessionId}`;
+    
+    // Update progress to 100%
+    document.getElementById('progressBar').style.width = '100%';
+    document.getElementById('statusMessage').innerHTML = 
+        '<i class="fas fa-check-circle me-2 text-success"></i>Complete!';
+}
+
+function showError(data) {
+    document.getElementById('loadingSection').classList.add('d-none');
+    document.getElementById('errorSection').classList.remove('d-none');
+    
+    document.getElementById('errorMessage').textContent = 
+        data.error || data.message || 'An unexpected error occurred';
+    
+    // Update progress bar to show error
+    document.getElementById('progressBar').classList.add('bg-danger');
+    document.getElementById('statusMessage').innerHTML = 
+        '<i class="fas fa-exclamation-triangle me-2 text-danger"></i>Error occurred';
+}
+
+// Start polling when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    pollInterval = setInterval(pollStatus, 2000); // Poll every 2 seconds
+    pollStatus(); // Initial poll
+});
+
+// Cleanup interval when page unloads
+window.addEventListener('beforeunload', function() {
+    if (pollInterval) {
+        clearInterval(pollInterval);
+    }
+});
+</script>
+
+<style>
+.status-icon {
+    transition: all 0.3s ease;
+}
+
+.status-icon i {
+    transition: color 0.3s ease;
+}
+
+.progress-bar {
+    transition: width 0.3s ease;
+}
+</style>
+{% endblock %}

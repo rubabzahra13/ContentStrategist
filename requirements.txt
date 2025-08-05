@@ -1,0 +1,7 @@
+openai
+requests
+pandas
+openpyxl
+python-dotenv
+rapidfuzz
+supabase
