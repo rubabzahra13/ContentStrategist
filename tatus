@@ -1,0 +1,47 @@
+[33mcommit 4341e001bde6c24901ca7899f8d2acb4a35d410f[m
+Author: Rubab Zahra <rubabzahra13@gmail.com>
+Date:   Tue Aug 5 20:33:34 2025 +0500
+
+     Initial commit: AI Content Strategist web application
+    
+     Features:
+    - AI-powered content calendar generation
+    - Smart month normalization (handles typos)
+    - Real-time trend analysis
+    - Professional Excel export
+    - Time-aware caching system
+    - Beautiful responsive web interface
+    - Comprehensive test suite
+    - Production-ready deployment
+    
+     Ready for deployment on Replit, Heroku, or any platform!
+
+.env.example
+.gitignore
+LICENSE
+README.md
+app.py
+core/cache_handler.py
+core/calendar_generator.py
+core/excel_exporter.py
+core/trend_retriever.py
+data/cache.json
+data/output/.gitkeep
+main.py
+main_cli.py
+requirements.txt
+requirements_web.txt
+run_all_tests.py
+templates/about.html
+templates/base.html
+templates/error.html
+templates/generate.html
+templates/index.html
+test.py
+tests/__init__.py
+tests/test_caching_integration.py
+tests/test_excel_generation.py
+tests/test_normalize_month.py
+tests/test_spelling_errors.py
+utils/config.py
+utils/helpers.py
