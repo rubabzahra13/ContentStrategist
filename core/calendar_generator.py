@@ -37,20 +37,17 @@ def generate_calendar(trends, month):
     print(f"📅 Requesting {days_in_month} days of content for {month}")
     
     prompt = f"""
-You are a 50-year elite viral content strategist who has generated $100M+ in revenue for AI-focused entrepreneurs.
+You are an elite viral content strategist. Generate EXACTLY {days_in_month} content entries for {month}.
 
-🎯 CRITICAL REQUIREMENT: Generate EXACTLY {days_in_month} content entries for {month} - one for each day of the month.
+TRENDING INTEL: {chr(10).join(trends)}
 
-📈 TRENDING INTEL for {month}:
-{chr(10).join(trends)}
-
-🎬 MANDATORY FORMAT - Each line must follow this EXACT pattern:
+FORMAT - Each line must follow this EXACT pattern:
 Day X | Reel Title | Hook Script | Body Script | Close/CTA | Format | Audio | Hashtags | Production | Optimization
 
-EXAMPLE FORMAT:
+EXAMPLE:
 Day 1 | "3 AI Tools Replacing $50K Employees" | If you're not using these 3 AI tools, you're losing $10K monthly | Tool 1: ChatGPT Advanced Data Analysis saves 15 hours weekly. Tool 2: Claude Projects manages entire campaigns. Tool 3: Notion AI automates client reporting. Each tool replaces expensive hires. | Which tool will you implement first? Comment below! | Face-to-cam + screen demo | Trending tech beat | #AItools #entrepreneur #businessgrowth #automation #startup #productivity #AIbusiness #futureofwork | Bold text overlays, quick transitions | Hook within first 2 seconds
 
-🚨 CRITICAL INSTRUCTIONS:
+CRITICAL INSTRUCTIONS:
 1. Generate EXACTLY {days_in_month} entries numbered Day 1 through Day {days_in_month}
 2. Each entry MUST be on its own line
 3. Each entry MUST have exactly 10 sections separated by " | "
@@ -63,107 +60,45 @@ CONTENT THEMES TO ROTATE:
 - Viral content creation methods
 - AI-powered marketing tactics
 - Entrepreneurship insights
-- Future-proofing business strategies
 
-Generate all {days_in_month} entries now:
-
-📝 SCRIPT WRITING EXCELLENCE:
-
-HOOK FORMULAS (0-2 seconds):
+HOOK FORMULAS:
 - Pattern Interrupt: "If you don't master these 3 skills, you'll be replaced by AI users in 12 months"
 - Insider Secret: "3 AI tools that are secretly running 7-figure businesses"
 - Social Proof: "This single AI prompt just replaced my $5K copywriter"
 - Future Pacing: "Don't start a business in 2025 without these AI systems"
-- Authority: "If I had to learn AI from scratch today, here's exactly what I'd do"
 
-BODY STRUCTURE (3-20 seconds):
+BODY STRUCTURE:
 - Lead with specific, actionable insights
 - Include exact tool names and use cases
 - Provide step-by-step breakdowns
 - Share measurable outcomes ("saved 10 hours", "increased revenue 300%")
-- Use insider language and advanced concepts
 
-CLOSE/CTA PATTERNS (20-30 seconds):
+CLOSE/CTA PATTERNS:
 - DM Magnets: "DM 'PROMPT' for the exact framework I used"
 - Engagement: "Which one are you implementing first? Drop it below 👇"
 - FOMO: "Save this before your competitors find it"
 - Social Proof: "Tag someone who needs to see this"
-- Authority: "Ready to 10x your business with AI? Link in bio"
-
-🎨 CONTENT VARIETY MATRIX:
 
 FORMATS TO ROTATE:
-- Face-to-cam + dramatic text overlays (authority building)
-- Screen recordings + talking head (tool demonstrations)
-- Voiceover + visual demos (workflow breakdowns)
-- Slide carousels + graphics (frameworks/strategies)
-- Behind-the-scenes + results reveal (credibility)
+- Face-to-cam + dramatic text overlays
+- Screen recordings + talking head
+- Voiceover + visual demos
+- Slide carousels + graphics
 
 PSYCHOLOGICAL TRIGGERS:
-✅ Scarcity: "Only 3% of entrepreneurs know this"
-✅ Urgency: "The AI revolution waits for no one"
-✅ Social Proof: "How 7-figure founders really scale"
-✅ Authority: "The method I used to build my AI empire"
-✅ Curiosity Gap: "The AI secret they don't want you to know"
-✅ Transformation: "From struggling solopreneur to AI-powered CEO"
+- Scarcity: "Only 3% of entrepreneurs know this"
+- Urgency: "The AI revolution waits for no one"
+- Social Proof: "How 7-figure founders really scale"
+- Authority: "The method I used to build my AI empire"
 
-🔥 CONTENT THEMES TO CYCLE:
-
-Week 1: AI Tool Mastery & Productivity Hacks
-Week 2: Business Scaling Systems & Automation
-Week 3: Advanced Strategies & Insider Secrets  
-Week 4: Future-Proofing & Competitive Advantage
-
-📱 PRODUCTION SPECIFICATIONS:
-
-VISUAL REQUIREMENTS:
-- Bold, contrasting text (max 3 words per line)
-- Capitalize emotion words: "SECRETLY", "7-FIGURE", "REPLACED"
-- Use trending transitions and zoom effects
-- Include progress bars, checkmarks, money symbols
-
-AUDIO STRATEGY:
-- Trending sounds for algorithm boost
-- Suspenseful/techy beats for authority content
-- Upbeat tracks for transformation stories
-- Trending songs for broader reach
-
-HASHTAG STRATEGY:
-- Mix of trending (#entrepreneur #AI) and niche (#promptengineering #businessautomation)
-- Include branded hashtag opportunities
-- Target 8-12 hashtags per post
-- Balance reach and engagement hashtags
-
-💡 ADVANCED OPTIMIZATION:
-
-ENGAGEMENT MAXIMIZERS:
-- Include controversy/contrarian takes
-- Ask specific questions in captions
-- Create "tutorial series" for algorithm retention
-- Use pattern interrupts and hook variations
-- Include educational carousels for saves
-
-CONVERSION OPTIMIZERS:
-- Multiple DM magnets throughout month
-- Progressive value ladder (free → paid)
-- Authority building through specificity
-- Social proof integration
-- Clear funnel progression
-
-🚀 EXECUTION STANDARDS:
-
-Each reel MUST include:
+EXECUTION STANDARDS:
 ✅ Specific tool/strategy names (ChatGPT, Notion AI, etc.)
 ✅ Measurable outcomes (time saved, revenue increased)
 ✅ Exact implementation steps
 ✅ Emotional triggers and urgency language
 ✅ Clear lead magnet or next step
-✅ Professional production guidance
-✅ Algorithm optimization tactics
 
-Generate {days_in_month} days of ELITE-LEVEL content that converts cold viewers into hot leads ready to invest in AI business transformation.
-
-REMEMBER: Every single reel should feel like premium, insider intelligence that competitors wish they had access to.
+Generate {days_in_month} days of ELITE-LEVEL content now:
 """
 
     try:
