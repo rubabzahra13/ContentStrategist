@@ -34,6 +34,7 @@ def generate_calendar(trends, month):
     
     # Get correct number of days for the month
     days_in_month = get_days_in_month(month)
+    print(f"📅 Requesting {days_in_month} days of content for {month}")
     
     prompt = f"""
 You are a 50-year elite viral content strategist who has generated $100M+ in revenue for AI-focused entrepreneurs. Your content positions creators as THE trusted authority in AI business mastery.
@@ -169,8 +170,14 @@ REMEMBER: Every single reel should feel like premium, insider intelligence that 
         # Check if it has the expected format
         lines_with_pipes = [line for line in calendar_text.split('\n') if '|' in line and 'Date' not in line]
         
+        print(f"🔍 Generated {len(lines_with_pipes)} content rows (expected {days_in_month})")
+        
         if len(lines_with_pipes) < days_in_month - 5:  # Allow some tolerance
             print(f"⚠️ Warning: Expected ~{days_in_month} content rows, got {len(lines_with_pipes)}")
+            print("First few lines of generated content:")
+            for i, line in enumerate(calendar_text.split('\n')[:10]):
+                if line.strip():
+                    print(f"  {i+1}: {line[:100]}...")
         
         return calendar_text
         
