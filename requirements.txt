@@ -21,3 +21,10 @@ supabase==1.2.0
 # Testing (optional)
 pytest==7.4.3
 python-dotenv
+flask
+openai
+openpyxl
+python-dotenv
+rapidfuzz
+requests
+supabase

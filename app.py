@@ -19,25 +19,42 @@ try:
     from core.calendar_generator import generate_calendar
     from core.excel_exporter import export_to_excel
     from core.cache_handler import get_cached_file, save_to_cache
-    from utils.helpers import normalize_month
+    print("✅ All core modules imported successfully")
 except ImportError as e:
-    print(f"Warning: Could not import some modules: {e}")
+    print(f"⚠️  Warning: Could not import some modules: {e}")
+    print("📝 Using fallback functions for missing modules")
     # Create fallback functions
     def get_trending_snippets(month):
-        return "No trends available"
+        return "No trends available - using fallback mode"
     def get_trend_age_warning(month):
         return None
     def generate_calendar(snippets, month):
-        return f"Sample calendar for {month}"
+        return f"""# Sample Content Calendar for {month}
+
+| Date | Hook | Body | CTA | Visual | Audio | Hashtags |
+|------|------|------|-----|--------|-------|----------|
+| Day 1 | Sample Hook | Sample body content | Sample CTA | Sample visual | Sample audio | #sample #hashtags |
+| Day 2 | Sample Hook 2 | Sample body content 2 | Sample CTA 2 | Sample visual 2 | Sample audio 2 | #sample2 #hashtags2 |
+"""
     def export_to_excel(text, path):
-        with open(path.replace('.xlsx', '.txt'), 'w') as f:
+        # Create a simple text file as fallback
+        txt_path = path.replace('.xlsx', '.txt')
+        with open(txt_path, 'w') as f:
             f.write(text)
+        return txt_path
     def get_cached_file(key):
         return None
     def save_to_cache(key, path):
         pass
+
+# Import helpers - this should always work now
+try:
+    from utils.helpers import normalize_month
+    print("✅ Helper functions imported successfully")
+except ImportError as e:
+    print(f"❌ Failed to import helpers: {e}")
     def normalize_month(month):
-        return month.title()
+        return month.title() if month else "Current Month"
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-for-sessions')
@@ -59,9 +76,6 @@ def generate_calendar_route():
         if not raw_month:
             flash('Please enter a month!', 'error')
             return redirect(url_for('index'))
-        
-        # Import here to avoid circular imports
-        from utils.helpers import normalize_month
         
         # Normalize month
         normalized_month = normalize_month(raw_month)
@@ -256,6 +270,7 @@ def internal_error(error):
 if __name__ == '__main__':
     # Create necessary directories
     os.makedirs('data/output', exist_ok=True)
+    print("📁 Created data/output directory")
     
     # Run the app
     port = int(os.environ.get('PORT', 5000))
@@ -264,6 +279,7 @@ if __name__ == '__main__':
     print("🚀 CONTENT STRATEGIST WEB APP STARTING")
     print(f"📡 Server: http://0.0.0.0:{port}")
     print(f"🔧 Debug mode: {debug}")
+    print("🌐 Access your app at the URL shown in the Replit webview")
     
     try:
         app.run(host='0.0.0.0', port=port, debug=debug)
