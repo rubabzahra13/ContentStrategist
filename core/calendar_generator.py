@@ -35,29 +35,22 @@ def generate_calendar(trends, month):
     # Get correct number of days for the month
     days_in_month = get_days_in_month(month)
     
-    # If it's a large month, use gpt-3.5-turbo which is better at following instructions
+    # Use conservative token limits to stay well under 8192 total
     if days_in_month > 20:
         model = "gpt-3.5-turbo"
-        max_tokens = 4000
+        max_tokens = 2800  # Much safer limit
     else:
         model = "gpt-4"
-        max_tokens = 3500
+        max_tokens = 2500  # Conservative for smaller months
     
     prompt = f"""
-You are creating Instagram Reels calendar for AI entrepreneurs. Month: {month} ({days_in_month} days)
+Create {days_in_month} Instagram Reels for AI entrepreneurs ({month}).
 
-TRENDS: {', '.join(trends)}
+Trends: {', '.join(trends[:3])}
 
-OUTPUT FORMAT (use this EXACT format for ALL {days_in_month} days):
-Day X | "Title" | Hook | Body | CTA | Format | Audio | Hashtags | Production | Optimization
+Format: Day X | "Title" | Hook | Body | CTA | Format | Audio | Hashtags | Production | Optimization
 
-RULES:
-1. Generate ALL {days_in_month} days (Day 1 through Day {days_in_month})
-2. NO shortcuts like "continue pattern" or "repeat format"
-3. Each day must be unique content
-4. Focus on AI tools, automation, business scaling
-
-Generate Day 1 through Day {days_in_month} now:
+Generate ALL {days_in_month} days (no shortcuts). Topics: AI tools, automation, scaling.
 """
 
     try:
