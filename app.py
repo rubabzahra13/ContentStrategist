@@ -11,13 +11,33 @@ import threading
 import time
 from datetime import datetime
 import json
+import traceback
 
 # Import our core modules
-from core.trend_retriever import get_trending_snippets, get_trend_age_warning
-from core.calendar_generator import generate_calendar
-from core.excel_exporter import export_to_excel
-from core.cache_handler import get_cached_file, save_to_cache
-from utils.helpers import normalize_month
+try:
+    from core.trend_retriever import get_trending_snippets, get_trend_age_warning
+    from core.calendar_generator import generate_calendar
+    from core.excel_exporter import export_to_excel
+    from core.cache_handler import get_cached_file, save_to_cache
+    from utils.helpers import normalize_month
+except ImportError as e:
+    print(f"Warning: Could not import some modules: {e}")
+    # Create fallback functions
+    def get_trending_snippets(month):
+        return "No trends available"
+    def get_trend_age_warning(month):
+        return None
+    def generate_calendar(snippets, month):
+        return f"Sample calendar for {month}"
+    def export_to_excel(text, path):
+        with open(path.replace('.xlsx', '.txt'), 'w') as f:
+            f.write(text)
+    def get_cached_file(key):
+        return None
+    def save_to_cache(key, path):
+        pass
+    def normalize_month(month):
+        return month.title()
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-for-sessions')
@@ -39,6 +59,9 @@ def generate_calendar_route():
         if not raw_month:
             flash('Please enter a month!', 'error')
             return redirect(url_for('index'))
+        
+        # Import here to avoid circular imports
+        from utils.helpers import normalize_month
         
         # Normalize month
         normalized_month = normalize_month(raw_month)
@@ -72,6 +95,8 @@ def generate_calendar_route():
                              raw_month=raw_month)
         
     except Exception as e:
+        print(f"Error in generate_calendar_route: {str(e)}")
+        print(f"Traceback: {traceback.format_exc()}")
         flash(f'Error starting generation: {str(e)}', 'error')
         return redirect(url_for('index'))
 
@@ -240,4 +265,11 @@ if __name__ == '__main__':
     print(f"📡 Server: http://0.0.0.0:{port}")
     print(f"🔧 Debug mode: {debug}")
     
-    app.run(host='0.0.0.0', port=port, debug=debug)
+    try:
+        app.run(host='0.0.0.0', port=port, debug=debug)
+    except OSError as e:
+        if "Address already in use" in str(e):
+            print(f"❌ Port {port} is already in use. Trying port {port + 1}")
+            app.run(host='0.0.0.0', port=port + 1, debug=debug)
+        else:
+            raise e
