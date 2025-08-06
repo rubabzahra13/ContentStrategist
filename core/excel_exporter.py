@@ -24,16 +24,17 @@ def export_to_excel(table_text, filename):
                 header_row = [cell.strip() for cell in line.split("|")]
                 continue
 
-            # Split and clean each row
-            row = [cell.strip() for cell in line.split("|")]
-            # Accept any row with at least 2 columns (more flexible)
-            if len(row) >= 2 and any(cell.strip() for cell in row):
-                # Pad row to 10 columns if needed
-                while len(row) < 10:
-                    row.append("")
-                # Trim to 10 columns if too many
-                row = row[:10]
-                data_rows.append(row)
+            # Only process lines that start with "Day "
+            if line.strip().startswith('Day '):
+                # Split and clean each row
+                row = [cell.strip() for cell in line.split("|")]
+                if len(row) >= 3:  # Minimum required columns (Day, Title, Content)
+                    # Pad row to 10 columns if needed
+                    while len(row) < 10:
+                        row.append("")
+                    # Trim to 10 columns if too many
+                    row = row[:10]
+                    data_rows.append(row)
 
         print(f"📊 Found {len(data_rows)} valid data rows for Excel export")
 

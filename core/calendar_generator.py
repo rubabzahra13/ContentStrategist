@@ -37,22 +37,35 @@ def generate_calendar(trends, month):
     print(f"📅 Requesting {days_in_month} days of content for {month}")
     
     prompt = f"""
-You are a 50-year elite viral content strategist who has generated $100M+ in revenue for AI-focused entrepreneurs. Your content positions creators as THE trusted authority in AI business mastery.
+You are a 50-year elite viral content strategist who has generated $100M+ in revenue for AI-focused entrepreneurs.
 
-🎯 MISSION: Transform viewers into qualified leads by positioning the creator as the go-to expert for AI business transformation.
-
-📊 STRATEGIC PILLARS:
-1. AUTHORITY – Demonstrate cutting-edge AI knowledge before competitors
-2. PRACTICALITY – Provide exact, implementable systems and frameworks  
-3. EMOTION – Create urgent desire for transformation and fear of being left behind
+🎯 CRITICAL REQUIREMENT: Generate EXACTLY {days_in_month} content entries for {month} - one for each day of the month.
 
 📈 TRENDING INTEL for {month}:
 {chr(10).join(trends)}
 
-🎬 CONTENT CALENDAR STRUCTURE:
-Generate EXACTLY {days_in_month} high-converting Instagram Reels following this EXACT format:
+🎬 MANDATORY FORMAT - Each line must follow this EXACT pattern:
+Day X | Reel Title | Hook Script | Body Script | Close/CTA | Format | Audio | Hashtags | Production | Optimization
 
-Day X | "Reel Title" | Hook Script (0-2s) | Body Script (3-20s) | Close/CTA (20-30s) | Format | Audio | Hashtags | Production | Optimization
+EXAMPLE FORMAT:
+Day 1 | "3 AI Tools Replacing $50K Employees" | If you're not using these 3 AI tools, you're losing $10K monthly | Tool 1: ChatGPT Advanced Data Analysis saves 15 hours weekly. Tool 2: Claude Projects manages entire campaigns. Tool 3: Notion AI automates client reporting. Each tool replaces expensive hires. | Which tool will you implement first? Comment below! | Face-to-cam + screen demo | Trending tech beat | #AItools #entrepreneur #businessgrowth #automation #startup #productivity #AIbusiness #futureofwork | Bold text overlays, quick transitions | Hook within first 2 seconds
+
+🚨 CRITICAL INSTRUCTIONS:
+1. Generate EXACTLY {days_in_month} entries numbered Day 1 through Day {days_in_month}
+2. Each entry MUST be on its own line
+3. Each entry MUST have exactly 10 sections separated by " | "
+4. NO extra headers, explanations, or formatting
+5. Start immediately with "Day 1 | ..." and end with "Day {days_in_month} | ..."
+
+CONTENT THEMES TO ROTATE:
+- AI productivity tools and automation
+- Business scaling strategies  
+- Viral content creation methods
+- AI-powered marketing tactics
+- Entrepreneurship insights
+- Future-proofing business strategies
+
+Generate all {days_in_month} entries now:
 
 📝 SCRIPT WRITING EXCELLENCE:
 
@@ -157,8 +170,8 @@ REMEMBER: Every single reel should feel like premium, insider intelligence that 
         response = client.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
-            temperature=0.8,
-            max_tokens=6000
+            temperature=0.7,
+            max_tokens=8000
         )
 
         calendar_text = response.choices[0].message.content.strip()
@@ -168,16 +181,46 @@ REMEMBER: Every single reel should feel like premium, insider intelligence that 
             raise ValueError("❌ OpenAI returned empty response")
             
         # Check if it has the expected format
-        lines_with_pipes = [line for line in calendar_text.split('\n') if '|' in line and 'Date' not in line]
+        lines_with_pipes = [line for line in calendar_text.split('\n') if '|' in line and line.startswith('Day ')]
         
         print(f"🔍 Generated {len(lines_with_pipes)} content rows (expected {days_in_month})")
         
-        if len(lines_with_pipes) < days_in_month - 5:  # Allow some tolerance
-            print(f"⚠️ Warning: Expected ~{days_in_month} content rows, got {len(lines_with_pipes)}")
-            print("First few lines of generated content:")
-            for i, line in enumerate(calendar_text.split('\n')[:10]):
-                if line.strip():
-                    print(f"  {i+1}: {line[:100]}...")
+        # If we didn't get enough content, try to supplement it
+        if len(lines_with_pipes) < days_in_month - 2:  # Allow minimal tolerance
+            print(f"⚠️ Insufficient content: Expected {days_in_month} rows, got {len(lines_with_pipes)}")
+            print("🔄 Attempting to generate missing days...")
+            
+            missing_days = days_in_month - len(lines_with_pipes)
+            start_day = len(lines_with_pipes) + 1
+            
+            # Generate additional content for missing days
+            supplement_prompt = f"""
+Generate EXACTLY {missing_days} more content entries starting from Day {start_day} to Day {days_in_month}.
+
+Follow this EXACT format for each line:
+Day X | Reel Title | Hook Script | Body Script | Close/CTA | Format | Audio | Hashtags | Production | Optimization
+
+Generate entries for days {start_day} through {days_in_month}:
+"""
+            
+            try:
+                supplement_response = client.chat.completions.create(
+                    model="gpt-4",
+                    messages=[{"role": "user", "content": supplement_prompt}],
+                    temperature=0.7,
+                    max_tokens=4000
+                )
+                
+                supplement_text = supplement_response.choices[0].message.content.strip()
+                supplement_lines = [line for line in supplement_text.split('\n') if line.startswith('Day ')]
+                
+                if supplement_lines:
+                    calendar_text += "\n" + "\n".join(supplement_lines)
+                    lines_with_pipes = [line for line in calendar_text.split('\n') if '|' in line and line.startswith('Day ')]
+                    print(f"✅ Supplemented content. Total rows now: {len(lines_with_pipes)}")
+                
+            except Exception as supplement_error:
+                print(f"⚠️ Could not supplement content: {supplement_error}")
         
         return calendar_text
         
