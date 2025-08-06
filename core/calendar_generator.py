@@ -1,4 +1,4 @@
-# === FILE: core/calendar_generator.py ===
+
 from openai import OpenAI
 from utils.config import OPENAI_API_KEY
 import calendar
@@ -36,32 +36,29 @@ def generate_calendar(trends, month):
     days_in_month = get_days_in_month(month)
     print(f"📅 Requesting {days_in_month} days of content for {month}")
     
-    prompt = f"""
-Generate EXACTLY {days_in_month} content entries for {month}.
+    # Use conservative token limits to stay well under 8192 total
+    if days_in_month > 20:
+        model = "gpt-3.5-turbo"
+        max_tokens = 2800  # Much safer limit
+    else:
+        model = "gpt-4"
+        max_tokens = 2500  # Conservative for smaller months
+    
+    # Shorter, more focused prompt to reduce token usage
+    prompt = f"""Create {days_in_month} Instagram Reels for AI entrepreneurs ({month}).
 
-TRENDS: {chr(10).join(trends[:3])}
+Trends: {', '.join(trends[:3])}
 
-FORMAT - Each line: Day X | Title | Hook | Body | CTA | Format | Audio | Hashtags | Production | Optimization
+Format: Day X | "Title" | Hook | Body | CTA | Format | Audio | Hashtags | Production | Optimization
 
-EXAMPLE:
-Day 1 | "3 AI Tools Replacing $50K Employees" | If you're not using these 3 AI tools, you're losing $10K monthly | Tool 1: ChatGPT saves 15 hours weekly. Tool 2: Claude manages campaigns. Tool 3: Notion AI automates reporting. | Which tool will you implement first? Comment below! | Face-to-cam + screen demo | Trending tech beat | #AItools #entrepreneur #businessgrowth | Bold text overlays, quick transitions | Hook within first 2 seconds
-
-REQUIREMENTS:
-1. Generate EXACTLY {days_in_month} entries (Day 1 to Day {days_in_month})
-2. Each entry on its own line with 10 sections separated by " | "
-3. No headers or extra formatting
-
-THEMES: AI tools, business scaling, viral content, marketing, entrepreneurship
-
-Generate {days_in_month} entries now:
-"""
+Generate ALL {days_in_month} days (no shortcuts). Topics: AI tools, automation, scaling."""
 
     try:
         response = client.chat.completions.create(
-            model="gpt-4",
+            model=model,
             messages=[{"role": "user", "content": prompt}],
             temperature=0.7,
-            max_tokens=8000
+            max_tokens=max_tokens
         )
 
         calendar_text = response.choices[0].message.content.strip()
@@ -71,9 +68,9 @@ Generate {days_in_month} entries now:
             raise ValueError("❌ OpenAI returned empty response")
             
         # Check if it has the expected format
-        lines_with_pipes = [line for line in calendar_text.split('\n') if '|' in line and line.startswith('Day ')]
+        lines_with_pipes = [line for line in calendar_text.split('\n') if '|' in line and 'Day ' in line]
         
-        print(f"🔍 Generated {len(lines_with_pipes)} content rows (expected {days_in_month})")
+        print(f"📊 Generated {len(lines_with_pipes)} content rows for {days_in_month}-day month")
         
         # If we didn't get enough content, try to supplement it
         if len(lines_with_pipes) < days_in_month - 2:  # Allow minimal tolerance
@@ -83,30 +80,27 @@ Generate {days_in_month} entries now:
             missing_days = days_in_month - len(lines_with_pipes)
             start_day = len(lines_with_pipes) + 1
             
-            # Generate additional content for missing days
-            supplement_prompt = f"""
-Generate EXACTLY {missing_days} more content entries starting from Day {start_day} to Day {days_in_month}.
+            # Generate additional content for missing days with very conservative tokens
+            supplement_prompt = f"""Generate EXACTLY {missing_days} more content entries starting from Day {start_day} to Day {days_in_month}.
 
-Follow this EXACT format for each line:
-Day X | Reel Title | Hook Script | Body Script | Close/CTA | Format | Audio | Hashtags | Production | Optimization
+Format: Day X | Title | Hook | Body | CTA | Format | Audio | Hashtags | Production | Optimization
 
-Generate entries for days {start_day} through {days_in_month}:
-"""
+Generate days {start_day} through {days_in_month}:"""
             
             try:
                 supplement_response = client.chat.completions.create(
-                    model="gpt-4",
+                    model="gpt-3.5-turbo",  # Use faster model for supplements
                     messages=[{"role": "user", "content": supplement_prompt}],
                     temperature=0.7,
-                    max_tokens=4000
+                    max_tokens=1500  # Very conservative for supplements
                 )
                 
                 supplement_text = supplement_response.choices[0].message.content.strip()
-                supplement_lines = [line for line in supplement_text.split('\n') if line.startswith('Day ')]
+                supplement_lines = [line for line in supplement_text.split('\n') if 'Day ' in line and '|' in line]
                 
                 if supplement_lines:
                     calendar_text += "\n" + "\n".join(supplement_lines)
-                    lines_with_pipes = [line for line in calendar_text.split('\n') if '|' in line and line.startswith('Day ')]
+                    lines_with_pipes = [line for line in calendar_text.split('\n') if '|' in line and 'Day ' in line]
                     print(f"✅ Supplemented content. Total rows now: {len(lines_with_pipes)}")
                 
             except Exception as supplement_error:
