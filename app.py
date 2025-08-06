@@ -31,7 +31,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/generate', methods=['POST'])
-def generate_calendar():
+def generate_calendar_route():
     """Handle calendar generation request"""
     try:
         # Get user input
