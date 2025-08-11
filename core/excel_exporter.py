@@ -29,7 +29,7 @@ def export_to_excel(table_text, filename):
                 # Split and clean each row
                 row = [cell.strip() for cell in line.split("|")]
                 if len(row) >= 3:  # Minimum required columns (Day, Title, Content)
-                    # Pad row to 10 columns if needed
+                    # Pad row to 10 columns if needed (proper Instagram structure)
                     while len(row) < 10:
                         row.append("")
                     # Trim to 10 columns if too many
@@ -44,11 +44,11 @@ def export_to_excel(table_text, filename):
                 print(f"  Line {i+1}: '{line}' (columns: {len(line.split('|'))})")
             raise ValueError("No valid data rows found in calendar text")
 
-        # Define columns for the new CEO-level format
+        # Define columns for proper Instagram content structure
         columns = [
-            "Day", "Reel Title", "Hook Script (0-2s)", "Body Breakdown (3-20s)",
-            "Close/CTA (20-30s)", "Format Style", "Audio Style", "Hashtag Strategy",
-            "Production Notes", "Optimization Tips"
+            "Day", "Reel Title", "Hook Cover Text", "Instagram Caption", 
+            "Full Speaking Script", "Video Style", "Audio Type", "Hashtags", 
+            "Production Notes", "Engagement Strategy"
         ]
 
         # Create DataFrame
@@ -79,8 +79,8 @@ def export_to_excel(table_text, filename):
             cell.font = header_font
             cell.alignment = Alignment(horizontal="center", vertical="center")
 
-        # Set column widths for detailed CEO-level content
-        column_widths = [8, 30, 40, 50, 35, 18, 18, 25, 30, 30]
+        # Set column widths for Instagram content structure
+        column_widths = [8, 25, 20, 40, 60, 18, 18, 25, 30, 25]
         for i, width in enumerate(column_widths, 1):
             ws.column_dimensions[chr(64 + i)].width = width
 

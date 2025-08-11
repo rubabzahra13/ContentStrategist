@@ -16,7 +16,14 @@ import traceback
 # Import our core modules
 try:
     from core.trend_retriever import get_trending_snippets, get_trend_age_warning
-    from core.calendar_generator import generate_calendar
+    # Import enhanced calendar generator
+    try:
+        from core.enhanced_calendar_generator import generate_enhanced_calendar as generate_calendar
+        from core.knowledge_base import KnowledgeBase
+        print("✅ Enhanced calendar generator loaded")
+    except ImportError:
+        from core.calendar_generator import generate_calendar
+        print("⚠️ Using basic calendar generator (enhanced version unavailable)")
     from core.excel_exporter import export_to_excel
     from core.cache_handler import get_cached_file, save_to_cache
     print("✅ All core modules imported successfully")
@@ -239,6 +246,79 @@ def about():
     """About page"""
     return render_template('about.html')
 
+
+
+@app.route('/rag/retrieve', methods=['POST'])
+def rag_retrieve():
+    """RAG retrieval endpoint for mentor content"""
+    try:
+        from core.rag_retrieval import RAGRetriever
+        
+        data = request.get_json()
+        query = data.get('query', '')
+        creators = data.get('creators', ['hormozi', 'vaibhavsisinty'])
+        limit = data.get('limit', 5)  # REGULATED: Default to 5 per creator to prevent oversampling
+        
+        if not query:
+            return jsonify({'error': 'Query is required'}), 400
+        
+        retriever = RAGRetriever()
+        results = retriever.retrieve(query, creators, limit)
+        
+        # Convert to JSON-serializable format
+        retrieved_data = []
+        for result in results:
+            retrieved_data.append({
+                'text': result.text,
+                'hook': result.hook,
+                'caption': result.caption,
+                'hashtags': result.hashtags,
+                'views': result.views,
+                'likes': result.likes,
+                'posted_at': result.posted_at,
+                'creator_handle': result.creator_handle,
+                'reel_id': result.reel_id,
+                'reel_url': result.reel_url,
+                'relevance_score': result.relevance_score
+            })
+        
+        return jsonify({
+            'query': query,
+            'results': retrieved_data,
+            'count': len(retrieved_data)
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/rag/stats')
+def rag_stats():
+    """Get RAG system statistics"""
+    try:
+        from core.rag_retrieval import RAGRetriever
+        
+        retriever = RAGRetriever()
+        stats = retriever.get_stats()
+        
+        return jsonify(stats)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/pipeline/run', methods=['POST'])
+def run_rag_pipeline():
+    """Run the Instagram RAG pipeline"""
+    try:
+        from core.instagram_rag_pipeline import InstagramRAGPipeline
+        
+        pipeline = InstagramRAGPipeline()
+        results = pipeline.run_pipeline()
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/health')
 def health_check():
     """Health check endpoint"""
@@ -250,7 +330,9 @@ def health_check():
             'trend_retrieval': True,
             'ai_generation': True,
             'excel_export': True,
-            'caching': True
+            'caching': True,
+            'rag_retrieval': True,
+            'instagram_pipeline': True
         }
     })
 

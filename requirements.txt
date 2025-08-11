@@ -18,13 +18,12 @@ rapidfuzz==3.4.0
 # Database (optional)
 supabase==1.2.0
 
+# Instagram scraping and RAG dependencies
+instaloader==4.14.2
+yt-dlp==2024.1.7
+numpy>=1.21.0
+
 # Testing (optional)
 pytest==7.4.3
-python-dotenv
-flask
-openai
-openpyxl
-python-dotenv
-rapidfuzz
-requests
-supabase
+
+# Cleanup duplicates - consolidated above

@@ -1,78 +1,69 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# PyInstaller
-*.manifest
-*.spec
-
 # Environment variables
 .env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+*.env
 
-# IDE
+# API Keys and sensitive data
+config.py
+secrets.json
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache and temporary files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.cache/
+cache.json
+
+# IDE and editor files
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# OS
+# Operating system files
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
+desktop.ini
 
-# Project specific
-data/output/*.xlsx
-!data/output/.gitkeep
+# Logs and debug files
 *.log
-temp/
-tmp/
+debug_*.py
+temp_*.py
 
-# Testing
+# Generated content and exports
+data/output/
+attached_assets/
+*.xlsx
+*.csv
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Test coverage
 .coverage
-.pytest_cache/
-.tox/
-.nox/
 htmlcov/
 
-# Jupyter Notebook
+# Jupyter Notebook checkpoints
 .ipynb_checkpoints
 
-# Flask
-instance/
-.webassets-cache
+# Node modules (if any)
+node_modules/
 
-# Replit
-.replit
-replit.nix
+# Backup files
+*.bak
+*.backup
+*~

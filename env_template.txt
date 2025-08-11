@@ -8,6 +8,14 @@ SERPER_API_KEY=your_serper_api_key_here
 SUPABASE_URL=your_supabase_url_here
 SUPABASE_KEY=your_supabase_anon_key_here
 
+# Instagram RAG Pipeline APIs (Required for real Instagram data)
+APIFY_TOKEN=your_apify_token_here
+ASSEMBLYAI_TOKEN=your_assemblyai_token_here
+
+# Note: OPENAI_API_KEY (above) is also used for:
+# - Embeddings (text-embedding-3-large)
+# - Fallback transcription (Whisper API)
+
 # Flask Configuration
 FLASK_ENV=production
 PORT=5000
