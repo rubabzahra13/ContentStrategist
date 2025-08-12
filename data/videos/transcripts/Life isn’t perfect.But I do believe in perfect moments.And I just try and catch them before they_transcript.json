@@ -1,0 +1,281 @@
+{
+  "source_file": "Life isn’t perfect.But I do believe in perfect moments.And I just try and catch them before they.mp4",
+  "source_path": "data\\videos\\raw\\Life isn’t perfect.But I do believe in perfect moments.And I just try and catch them before they.mp4",
+  "transcript_text": "The greatest skill you can develop is the ability to stay in a great mood in the absence of things to be in a great mood about. And if you can be in a bad mood for no reason, you might as well be in a good mood for no reason.",
+  "language": "english",
+  "duration": 11.489999771118164,
+  "words": [
+    {
+      "word": "The",
+      "start": 0.0,
+      "end": 0.25999999046325684
+    },
+    {
+      "word": "greatest",
+      "start": 0.25999999046325684,
+      "end": 0.6200000047683716
+    },
+    {
+      "word": "skill",
+      "start": 0.6200000047683716,
+      "end": 0.8399999737739563
+    },
+    {
+      "word": "you",
+      "start": 0.8399999737739563,
+      "end": 0.9800000190734863
+    },
+    {
+      "word": "can",
+      "start": 0.9800000190734863,
+      "end": 1.1200000047683716
+    },
+    {
+      "word": "develop",
+      "start": 1.1200000047683716,
+      "end": 1.6399999856948853
+    },
+    {
+      "word": "is",
+      "start": 1.6399999856948853,
+      "end": 2.0999999046325684
+    },
+    {
+      "word": "the",
+      "start": 2.0999999046325684,
+      "end": 2.259999990463257
+    },
+    {
+      "word": "ability",
+      "start": 2.259999990463257,
+      "end": 2.5399999618530273
+    },
+    {
+      "word": "to",
+      "start": 2.5399999618530273,
+      "end": 2.9200000762939453
+    },
+    {
+      "word": "stay",
+      "start": 2.9200000762939453,
+      "end": 3.0799999237060547
+    },
+    {
+      "word": "in",
+      "start": 3.0799999237060547,
+      "end": 3.2200000286102295
+    },
+    {
+      "word": "a",
+      "start": 3.2200000286102295,
+      "end": 3.319999933242798
+    },
+    {
+      "word": "great",
+      "start": 3.319999933242798,
+      "end": 3.5799999237060547
+    },
+    {
+      "word": "mood",
+      "start": 3.5799999237060547,
+      "end": 3.9000000953674316
+    },
+    {
+      "word": "in",
+      "start": 3.9000000953674316,
+      "end": 4.28000020980835
+    },
+    {
+      "word": "the",
+      "start": 4.28000020980835,
+      "end": 4.519999980926514
+    },
+    {
+      "word": "absence",
+      "start": 4.519999980926514,
+      "end": 4.980000019073486
+    },
+    {
+      "word": "of",
+      "start": 4.980000019073486,
+      "end": 5.320000171661377
+    },
+    {
+      "word": "things",
+      "start": 5.320000171661377,
+      "end": 5.559999942779541
+    },
+    {
+      "word": "to",
+      "start": 5.559999942779541,
+      "end": 5.71999979019165
+    },
+    {
+      "word": "be",
+      "start": 5.71999979019165,
+      "end": 5.78000020980835
+    },
+    {
+      "word": "in",
+      "start": 5.78000020980835,
+      "end": 5.900000095367432
+    },
+    {
+      "word": "a",
+      "start": 5.900000095367432,
+      "end": 5.960000038146973
+    },
+    {
+      "word": "great",
+      "start": 5.960000038146973,
+      "end": 6.119999885559082
+    },
+    {
+      "word": "mood",
+      "start": 6.119999885559082,
+      "end": 6.260000228881836
+    },
+    {
+      "word": "about",
+      "start": 6.260000228881836,
+      "end": 6.599999904632568
+    },
+    {
+      "word": "And",
+      "start": 7.059999942779541,
+      "end": 7.139999866485596
+    },
+    {
+      "word": "if",
+      "start": 7.139999866485596,
+      "end": 7.199999809265137
+    },
+    {
+      "word": "you",
+      "start": 7.199999809265137,
+      "end": 7.300000190734863
+    },
+    {
+      "word": "can",
+      "start": 7.300000190734863,
+      "end": 7.420000076293945
+    },
+    {
+      "word": "be",
+      "start": 7.420000076293945,
+      "end": 7.519999980926514
+    },
+    {
+      "word": "in",
+      "start": 7.519999980926514,
+      "end": 7.659999847412109
+    },
+    {
+      "word": "a",
+      "start": 7.659999847412109,
+      "end": 7.760000228881836
+    },
+    {
+      "word": "bad",
+      "start": 7.760000228881836,
+      "end": 8.039999961853027
+    },
+    {
+      "word": "mood",
+      "start": 8.039999961853027,
+      "end": 8.279999732971191
+    },
+    {
+      "word": "for",
+      "start": 8.279999732971191,
+      "end": 8.460000038146973
+    },
+    {
+      "word": "no",
+      "start": 8.460000038146973,
+      "end": 8.65999984741211
+    },
+    {
+      "word": "reason",
+      "start": 8.65999984741211,
+      "end": 8.960000038146973
+    },
+    {
+      "word": "you",
+      "start": 9.5,
+      "end": 9.619999885559082
+    },
+    {
+      "word": "might",
+      "start": 9.619999885559082,
+      "end": 9.779999732971191
+    },
+    {
+      "word": "as",
+      "start": 9.779999732971191,
+      "end": 9.9399995803833
+    },
+    {
+      "word": "well",
+      "start": 9.9399995803833,
+      "end": 10.0600004196167
+    },
+    {
+      "word": "be",
+      "start": 10.0600004196167,
+      "end": 10.199999809265137
+    },
+    {
+      "word": "in",
+      "start": 10.199999809265137,
+      "end": 10.300000190734863
+    },
+    {
+      "word": "a",
+      "start": 10.300000190734863,
+      "end": 10.479999542236328
+    },
+    {
+      "word": "good",
+      "start": 10.479999542236328,
+      "end": 10.619999885559082
+    },
+    {
+      "word": "mood",
+      "start": 10.619999885559082,
+      "end": 10.779999732971191
+    },
+    {
+      "word": "for",
+      "start": 10.779999732971191,
+      "end": 10.960000038146973
+    },
+    {
+      "word": "no",
+      "start": 10.960000038146973,
+      "end": 11.140000343322754
+    },
+    {
+      "word": "reason",
+      "start": 11.140000343322754,
+      "end": 11.380000114440918
+    }
+  ],
+  "segments": [
+    {
+      "text": " The greatest skill you can develop is the ability to stay in a great mood in the absence of things",
+      "start": 0.0,
+      "end": 5.559999942779541
+    },
+    {
+      "text": " to be in a great mood about. And if you can be in a bad mood for no reason,",
+      "start": 5.559999942779541,
+      "end": 8.960000038146973
+    },
+    {
+      "text": " you might as well be in a good mood for no reason.",
+      "start": 9.5,
+      "end": 11.380000114440918
+    }
+  ]
+}

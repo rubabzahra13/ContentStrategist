@@ -26,7 +26,8 @@ def run_test_suite():
         'tests.test_normalize_month',
         'tests.test_spelling_errors', 
         'tests.test_excel_generation',
-        'tests.test_caching_integration'
+        'tests.test_caching_integration',
+        'tests.test_video_processing'
     ]
     
     # Track results
@@ -125,7 +126,10 @@ def run_test_suite():
         "✅ Spelling Error Handling": "IMPLEMENTED - Manual mapping + fuzzy matching",
         "✅ Cache Freshness": "IMPLEMENTED - Time-based expiration rules",
         "✅ Excel Generation": "IMPLEMENTED - Robust formatting and validation",
-        "✅ Error Recovery": "IMPLEMENTED - Graceful fallbacks throughout"
+        "✅ Error Recovery": "IMPLEMENTED - Graceful fallbacks throughout",
+        "✅ Video Transcription": "IMPLEMENTED - OpenAI Whisper integration",
+        "✅ Transcript Analysis": "IMPLEMENTED - Pattern extraction and insights",
+        "✅ Enhanced Calendars": "IMPLEMENTED - AI-optimized transcript generation"
     }
     
     for feature, status in feature_status.items():

@@ -5,7 +5,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.utils.dataframe import dataframe_to_rows
 
-def export_to_excel(table_text, filename):
+def export_to_excel(table_text, filename, include_transcripts=False):
     """Export calendar data to Excel with proper formatting and error handling"""
 
     try:
@@ -15,26 +15,52 @@ def export_to_excel(table_text, filename):
 
         print(f"📝 Processing {len(lines)} total lines, {len(data_lines)} contain '|'")
 
+        # Detect if transcripts are included by checking for "Transcript" in any line
+        has_transcripts = any("Transcript" in line for line in data_lines)
+        if has_transcripts:
+            include_transcripts = True
+            print("🎬 Detected transcript column in data")
+
         # Find header row and data rows
         header_row = None
         data_rows = []
 
-        for line in data_lines:
-            if "Date" in line and "Reel Title" in line:
-                header_row = [cell.strip() for cell in line.split("|")]
-                continue
+        # Determine expected column count
+        expected_columns = 11 if include_transcripts else 10
 
-            # Only process lines that start with "Day "
-            if line.strip().startswith('Day '):
+        for i, line in enumerate(data_lines):
+            # Look for header row - more flexible detection
+            if i == 0 or any(keyword in line.lower() for keyword in ["day", "date", "title", "hook", "content", "body", "cta"]):
+                if not header_row and "|" in line:
+                    header_row = [cell.strip() for cell in line.split("|") if cell.strip()]
+                    expected_columns = len(header_row)
+                    print(f"📋 Detected header with {expected_columns} columns: {header_row}")
+                    continue
+
+            # Process data rows - more flexible detection
+            if "|" in line and line.strip():
                 # Split and clean each row
                 row = [cell.strip() for cell in line.split("|")]
-                if len(row) >= 3:  # Minimum required columns (Day, Title, Content)
-                    # Pad row to 10 columns if needed
-                    while len(row) < 10:
+                # Remove empty cells at the beginning and end
+                while row and not row[0]:
+                    row.pop(0)
+                while row and not row[-1]:
+                    row.pop()
+                
+                # Skip if it's clearly a header row we missed (but we already found the header)
+                if header_row and row and any(keyword in row[0].lower() for keyword in ["day", "date", "title", "hook", "content", "body", "cta"]):
+                    # Check if this is actually a header or data
+                    if not (row[0].lower().startswith('day ') or row[0].isdigit() or 'day' in row[0].lower()):
+                        continue
+                
+                if len(row) >= 2:  # Minimum required columns
+                    # Pad row to expected columns if needed
+                    while len(row) < expected_columns:
                         row.append("")
-                    # Trim to 10 columns if too many
-                    row = row[:10]
+                    # Trim to expected columns if too many
+                    row = row[:expected_columns]
                     data_rows.append(row)
+                    print(f"✓ Added row: {row[0]} (total cells: {len(row)})")
 
         print(f"📊 Found {len(data_rows)} valid data rows for Excel export")
 
@@ -44,12 +70,30 @@ def export_to_excel(table_text, filename):
                 print(f"  Line {i+1}: '{line}' (columns: {len(line.split('|'))})")
             raise ValueError("No valid data rows found in calendar text")
 
-        # Define columns for the new CEO-level format
-        columns = [
-            "Day", "Reel Title", "Hook Script (0-2s)", "Body Breakdown (3-20s)",
-            "Close/CTA (20-30s)", "Format Style", "Audio Style", "Hashtag Strategy",
-            "Production Notes", "Optimization Tips"
-        ]
+        # Use detected header or create default columns
+        if header_row and len(header_row) > 0:
+            columns = header_row
+            print(f"📋 Using detected columns: {columns}")
+        else:
+            # Fallback to default columns based on expected_columns
+            if include_transcripts:
+                columns = [
+                    "Day", "Reel Title", "Hook Script (0-2s)", "Body Breakdown (3-20s)",
+                    "Close/CTA (20-30s)", "Format Style", "Audio Style", "Hashtag Strategy",
+                    "Production Notes", "Optimization Tips", "Full Transcript"
+                ]
+            else:
+                columns = [
+                    "Day", "Reel Title", "Hook Script (0-2s)", "Body Breakdown (3-20s)",
+                    "Close/CTA (20-30s)", "Format Style", "Audio Style", "Hashtag Strategy",
+                    "Production Notes", "Optimization Tips"
+                ]
+            print(f"📋 Using default columns: {columns}")
+
+        # Ensure we have the right number of columns
+        while len(columns) < expected_columns:
+            columns.append(f"Column_{len(columns)+1}")
+        columns = columns[:expected_columns]
 
         # Create DataFrame
         df = pd.DataFrame(data_rows, columns=columns)
@@ -80,7 +124,11 @@ def export_to_excel(table_text, filename):
             cell.alignment = Alignment(horizontal="center", vertical="center")
 
         # Set column widths for detailed CEO-level content
-        column_widths = [8, 30, 40, 50, 35, 18, 18, 25, 30, 30]
+        if include_transcripts:
+            column_widths = [8, 30, 40, 50, 35, 18, 18, 25, 30, 30, 60]  # Added wider column for transcript
+        else:
+            column_widths = [8, 30, 40, 50, 35, 18, 18, 25, 30, 30]
+        
         for i, width in enumerate(column_widths, 1):
             ws.column_dimensions[chr(64 + i)].width = width
 

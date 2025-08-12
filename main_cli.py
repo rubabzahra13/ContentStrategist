@@ -76,7 +76,7 @@ def main():
         # 4. Generate calendar
         print("\n🧠 Generating content calendar...")
         try:
-            calendar_text = generate_calendar(snippets, month)
+            calendar_text = generate_calendar(snippets, month, include_transcripts=True)
             
             # 5. Validate calendar output
             lines = calendar_text.splitlines()

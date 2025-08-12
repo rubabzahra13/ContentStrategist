@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Calendar - Content Strategist{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="hero-section text-center text-white">
+                <h1 class="display-4 fw-bold mb-4">
+                    <i class="fas fa-upload me-3"></i>
+                    Refine Your Calendar
+                </h1>
+                <p class="lead mb-4">
+                    Upload your existing content calendar and let our system enhance it with 
+                    strategic improvements, trending topics, and professional optimization.
+                </p>
+                <div class="row text-center mb-4">
+                    <div class="col-md-4 mb-3">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-upload"></i>
+                        </div>
+                        <h5>Easy Upload</h5>
+                        <p class="small">Excel, CSV, or text files</p>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="feature-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <h5>Smart Refinement</h5>
+                        <p class="small">Enhanced hooks and content</p>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="feature-icon">
+                            <i class="fas fa-trending-up"></i>
+                        </div>
+                        <h5>Current Trends</h5>
+                        <p class="small">Updated with latest insights</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Form -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body p-5">
+                    <h3 class="card-title text-center mb-4">
+                        <i class="fas fa-cloud-upload-alt me-2 text-primary"></i>
+                        Upload Your Calendar for Refinement
+                    </h3>
+                    
+                    <form method="POST" action="{{ url_for('upload_calendar') }}" enctype="multipart/form-data">
+                        <!-- File Upload -->
+                        <div class="mb-4">
+                            <label for="calendar_file" class="form-label fw-bold">
+                                <i class="fas fa-file me-2"></i>
+                                Select Calendar File
+                            </label>
+                            <input type="file" 
+                                   class="form-control form-control-lg" 
+                                   id="calendar_file" 
+                                   name="calendar_file" 
+                                   accept=".xlsx,.xls,.csv,.txt"
+                                   required>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Supported formats: Excel (.xlsx, .xls), CSV (.csv), or Text (.txt) files
+                            </div>
+                        </div>
+
+                        <!-- Target Month -->
+                        <div class="mb-4">
+                            <label for="target_month" class="form-label fw-bold">
+                                <i class="fas fa-calendar me-2"></i>
+                                Target Month
+                            </label>
+                            <input type="text" 
+                                   class="form-control form-control-lg" 
+                                   id="target_month" 
+                                   name="target_month" 
+                                   placeholder="e.g., March 2025, August 2024" 
+                                   required
+                                   autocomplete="off">
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                This helps optimize content for the specific time period
+                            </div>
+                        </div>
+
+                        <!-- Refinement Focus -->
+                        <div class="mb-4">
+                            <label for="refinement_focus" class="form-label fw-bold">
+                                <i class="fas fa-bullseye me-2"></i>
+                                Refinement Focus
+                            </label>
+                            <select class="form-select form-select-lg" id="refinement_focus" name="refinement_focus">
+                                <option value="general">General Improvement (recommended)</option>
+                                <option value="hooks">Focus on Hooks & Headlines</option>
+                                <option value="engagement">Maximize Engagement</option>
+                                <option value="conversion">Boost Conversions</option>
+                                <option value="trends">Update with Latest Trends</option>
+                                <option value="professional">Professional Polish</option>
+                            </select>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Choose what aspect you'd like to improve most
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-magic me-2"></i>
+                                Refine My Calendar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Information Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body p-4">
+                    <h4 class="text-center mb-4">
+                        <i class="fas fa-lightbulb me-2 text-warning"></i>
+                        How Calendar Refinement Works
+                    </h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="mb-1">Analyze Your Content</h6>
+                                    <p class="mb-0 small text-muted">Our system parses your calendar and identifies improvement opportunities</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="mb-1">Apply Strategic Enhancements</h6>
+                                    <p class="mb-0 small text-muted">Improve hooks, body content, CTAs, and overall strategy</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="mb-1">Add Current Trends</h6>
+                                    <p class="mb-0 small text-muted">Incorporate latest market insights and trending topics</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="mb-1">Professional Output</h6>
+                                    <p class="mb-0 small text-muted">Get back a polished, optimized calendar ready for execution</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sample Formats Section -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body p-4">
+                    <h5 class="text-center mb-3">
+                        <i class="fas fa-file-alt me-2 text-info"></i>
+                        Supported File Formats
+                    </h5>
+                    <div class="row text-center">
+                        <div class="col-md-3 mb-2">
+                            <span class="badge bg-light text-dark p-2">
+                                <i class="fas fa-file-excel me-1"></i>
+                                .xlsx / .xls
+                            </span>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <span class="badge bg-light text-dark p-2">
+                                <i class="fas fa-file-csv me-1"></i>
+                                .csv
+                            </span>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <span class="badge bg-light text-dark p-2">
+                                <i class="fas fa-file-alt me-1"></i>
+                                .txt
+                            </span>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <span class="badge bg-light text-dark p-2">
+                                <i class="fas fa-upload me-1"></i>
+                                Max 16MB
+                            </span>
+                        </div>
+                    </div>
+                    <p class="text-center text-muted small mb-0 mt-2">
+                        Upload any structured content calendar and we'll enhance it for you!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Auto-focus on the file input
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('calendar_file').focus();
+});
+
+// Show file name when selected
+document.getElementById('calendar_file').addEventListener('change', function(e) {
+    const fileName = e.target.files[0]?.name;
+    if (fileName) {
+        const formText = e.target.parentElement.querySelector('.form-text');
+        formText.innerHTML = `<i class="fas fa-check me-1 text-success"></i>Selected: ${fileName}`;
+    }
+});
+
+// Add some interactivity to the month input
+document.getElementById('target_month').addEventListener('input', function(e) {
+    const value = e.target.value.toLowerCase();
+    const formText = e.target.parentElement.querySelector('.form-text');
+    
+    if (value.includes('march') || value.includes('april') || value.includes('may')) {
+        formText.innerHTML = '<i class="fas fa-info-circle me-1 text-success"></i>Great timing for spring content strategies!';
+    } else if (value.includes('december') || value.includes('january')) {
+        formText.innerHTML = '<i class="fas fa-info-circle me-1 text-success"></i>Perfect for holiday and new year content!';
+    } else {
+        formText.innerHTML = '<i class="fas fa-info-circle me-1"></i>This helps optimize content for the specific time period';
+    }
+});
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.badge {
+    font-size: 0.9rem;
+}
+
+.form-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.2rem rgba(240, 147, 251, 0.25);
+}
+</style>
+{% endblock %}

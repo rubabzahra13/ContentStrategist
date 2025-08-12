@@ -1,12 +1,12 @@
-# 🚀 AI Content Strategist
+# 🚀 Content Strategist
 
-An intelligent web application that generates strategic Instagram Reels content calendars for entrepreneurs scaling with AI and business strategy.
+A web application that generates strategic Instagram Reels content calendars for entrepreneurs scaling with business strategy.
 
-![AI Content Strategist](https://img.shields.io/badge/AI-Powered-blue) ![Python](https://img.shields.io/badge/Python-3.11+-green) ![Flask](https://img.shields.io/badge/Flask-Web%20App-red) ![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-orange)
+![Python](https://img.shields.io/badge/Python-3.11+-green) ![Flask](https://img.shields.io/badge/Flask-Web%20App-red)
 
 ## ✨ Features
 
-- 🤖 **AI-Powered Content Generation** - Uses GPT-4 with expert viral content strategist prompting
+- 🤖 **Intelligent Content Generation** - Advanced content strategy and viral marketing expertise
 - 📅 **30-Day Strategic Calendars** - Complete monthly content plans with timing and optimization
 - 🔤 **Smart Input Processing** - Handles spelling errors like "ajguzt" → "August" automatically
 - 📊 **Professional Excel Export** - Beautifully formatted calendars with 10 strategic columns
@@ -52,8 +52,8 @@ Each generated calendar includes:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/rubabzahra13/ai-content-strategist.git
-   cd ai-content-strategist
+   git clone https://github.com/rubabzahra13/content-strategist.git
+   cd content-strategist
    ```
 
 2. **Install dependencies:**
@@ -87,7 +87,7 @@ python main_cli.py
 ## 📋 Requirements
 
 ### Required:
-- **OpenAI API Key** - For AI content generation
+- **OpenAI API Key** - For content generation
 - **Python 3.11+** - Runtime environment
 
 ### Optional (with fallbacks):
@@ -97,11 +97,11 @@ python main_cli.py
 ## 🔧 Project Structure
 
 ```
-ai-content-strategist/
+content-strategist/
 ├── app.py                 # Flask web application
 ├── main_cli.py           # Original CLI version
 ├── core/
-│   ├── calendar_generator.py   # AI content generation
+│   ├── calendar_generator.py   # Content generation engine
 │   ├── trend_retriever.py      # Trend analysis
 │   ├── excel_exporter.py       # Professional Excel formatting
 │   └── cache_handler.py        # Supabase integration
@@ -129,11 +129,11 @@ python -m pytest tests/test_caching_integration.py -v
 
 ## 🎨 Example Output
 
-The AI generates strategic content like this:
+The system generates strategic content like this:
 
-**Hook (0-2s):** "If you don't master these 3 skills, you'll be replaced by AI users in 12 months"
+**Hook (0-2s):** "If you don't master these 3 skills, you'll be left behind in 12 months"
 
-**Body (3-20s):** "Skill 1: Emotional Intelligence – Because no AI can replace how you make people feel. Skill 2: Problem Framing – If you can't ask the right question, AI can't help. Skill 3: Prompt Engineering – Your prompts = your power."
+**Body (3-20s):** "Skill 1: Emotional Intelligence – The foundation of authentic connections. Skill 2: Problem Framing – Ask better questions to get better solutions. Skill 3: Strategic Communication – Your message determines your impact."
 
 **Close (20-30s):** "Which one are you working on right now? Drop it below 👇"
 
@@ -170,7 +170,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- OpenAI for GPT-4 API
+- OpenAI for API services
 - Supabase for database and storage
 - Flask community for the web framework
 - Bootstrap for the beautiful UI components
@@ -179,10 +179,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you have any questions or need help:
 
-1. Check the [Issues](https://github.com/rubabzahra13/ai-content-strategist/issues) page
+1. Check the [Issues](https://github.com/rubabzahra13/content-strategist/issues) page
 2. Create a new issue with detailed information
 3. Join our community discussions
 
 ---
 
-**Built with ❤️ using AI • Powered by OpenAI GPT-4 • Ready for Production**
+**Built with ❤️ for Content Creators • Professional Grade • Ready for Production**

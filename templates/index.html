@@ -8,19 +8,19 @@
             <div class="hero-section text-center text-white">
                 <h1 class="display-4 fw-bold mb-4">
                     <i class="fas fa-magic me-3"></i>
-                    AI Content Calendar Generator
+                    Content Calendar Generator
                 </h1>
                 <p class="lead mb-4">
                     Generate a professional 30-day Instagram Reels content calendar 
-                    tailored for entrepreneurs scaling with AI and business strategy.
+                    tailored for entrepreneurs scaling with business strategy.
                 </p>
                 <div class="row text-center mb-4">
                     <div class="col-md-3 col-6 mb-3">
                         <div class="feature-icon">
                             <i class="fas fa-robot"></i>
                         </div>
-                        <h5>AI-Powered</h5>
-                        <p class="small">GPT-4 generates strategic content</p>
+                        <h5>Smart Generation</h5>
+                        <p class="small">Advanced strategic content creation</p>
                     </div>
                     <div class="col-md-3 col-6 mb-3">
                         <div class="feature-icon">
@@ -73,15 +73,19 @@
                                    autocomplete="off">
                             <div class="form-text">
                                 <i class="fas fa-info-circle me-1"></i>
-                                Don't worry about spelling - our AI handles typos like "ajguzt", "sepember", "julu", etc.
+                                Don't worry about spelling - the system handles typos like "ajguzt", "sepember", "julu", etc.
                             </div>
                         </div>
                         
-                        <div class="d-grid">
+                        <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary btn-lg">
                                 <i class="fas fa-magic me-2"></i>
                                 Generate Content Calendar
                             </button>
+                            <a href="{{ url_for('upload_calendar') }}" class="btn btn-outline-light btn-lg">
+                                <i class="fas fa-upload me-2"></i>
+                                Upload & Refine Existing Calendar
+                            </a>
                         </div>
                     </form>
                 </div>
@@ -162,7 +166,7 @@
                         </div>
                     </div>
                     <p class="text-center text-muted small mb-0 mt-2">
-                        All of these work perfectly! Our AI normalizes any spelling variations.
+                        All of these work perfectly! The system normalizes any spelling variations.
                     </p>
                 </div>
             </div>
@@ -189,7 +193,7 @@ document.getElementById('month').addEventListener('input', function(e) {
     } else if (value.includes('sepember')) {
         formText.innerHTML = '<i class="fas fa-magic me-1 text-success"></i>No problem! I know you mean "September"';
     } else {
-        formText.innerHTML = '<i class="fas fa-info-circle me-1"></i>Don\'t worry about spelling - our AI handles typos like "ajguzt", "sepember", "julu", etc.';
+        formText.innerHTML = '<i class="fas fa-info-circle me-1"></i>Don\'t worry about spelling - the system handles typos like "ajguzt", "sepember", "julu", etc.';
     }
 });
 </script>

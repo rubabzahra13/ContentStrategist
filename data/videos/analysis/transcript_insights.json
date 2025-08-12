@@ -1,0 +1,283 @@
+{
+  "total_transcripts_analyzed": 8,
+  "individual_analyses": [
+    {
+      "word_count": 360,
+      "sentence_count": 70,
+      "avg_words_per_sentence": 5.070422535211268,
+      "character_count": 2096,
+      "hook": "If you go to this website, you could build almost anything without programming skills",
+      "hook_length": 14,
+      "hook_strength": 1,
+      "engagement_score": 1,
+      "cta": "",
+      "uses_numbers": true,
+      "number_count": 17,
+      "emotional_intensity": 0,
+      "source_file": "Comment - Full List to get the links to all the tools Over 100 new AI tools launched this week.I.mp4"
+    },
+    {
+      "word_count": 114,
+      "sentence_count": 8,
+      "avg_words_per_sentence": 12.666666666666666,
+      "character_count": 588,
+      "hook": "Many of your ideas are probably good",
+      "hook_length": 7,
+      "hook_strength": 0,
+      "engagement_score": 0,
+      "cta": "",
+      "uses_numbers": true,
+      "number_count": 2,
+      "emotional_intensity": 0,
+      "source_file": "Just because it’s a great idea, doesn’t mean you need to do it right now.Do the other things you.mp4"
+    },
+    {
+      "word_count": 51,
+      "sentence_count": 2,
+      "avg_words_per_sentence": 17.0,
+      "character_count": 225,
+      "hook": "The greatest skill you can develop is the ability to stay in a great mood in the absence of things to be in a great mood about",
+      "hook_length": 27,
+      "hook_strength": 0,
+      "engagement_score": 0,
+      "cta": "",
+      "uses_numbers": false,
+      "number_count": 0,
+      "emotional_intensity": 0,
+      "source_file": "Life isn’t perfect.But I do believe in perfect moments.And I just try and catch them before they.mp4"
+    },
+    {
+      "word_count": 129,
+      "sentence_count": 7,
+      "avg_words_per_sentence": 16.125,
+      "character_count": 665,
+      "hook": "I have $3,500 in my bank account, what should I do",
+      "hook_length": 11,
+      "hook_strength": 0,
+      "engagement_score": 0,
+      "cta": "",
+      "uses_numbers": true,
+      "number_count": 8,
+      "emotional_intensity": 0,
+      "source_file": "People will spend 100 hours trying to make $100-mo passive when they could’ve made $10,000 getti.mp4"
+    },
+    {
+      "word_count": 76,
+      "sentence_count": 4,
+      "avg_words_per_sentence": 15.2,
+      "character_count": 408,
+      "hook": "If you want to close more sales, say less",
+      "hook_length": 9,
+      "hook_strength": 1,
+      "engagement_score": 0,
+      "cta": "",
+      "uses_numbers": false,
+      "number_count": 0,
+      "emotional_intensity": 0,
+      "source_file": "The longer I learn about sales, the more I feel it comes down to clear communication.You are her.mp4"
+    },
+    {
+      "word_count": 391,
+      "sentence_count": 77,
+      "avg_words_per_sentence": 5.012820512820513,
+      "character_count": 2263,
+      "hook": "Sundar Pichai just knocked out Sam Altman in one single day",
+      "hook_length": 11,
+      "hook_strength": 0,
+      "engagement_score": 1,
+      "cta": "",
+      "uses_numbers": true,
+      "number_count": 3,
+      "emotional_intensity": 1,
+      "source_file": "Want links to all the tools 💪🏽🔥Let me know your favourite update from Google IO below and i w.mp4"
+    },
+    {
+      "word_count": 365,
+      "sentence_count": 37,
+      "avg_words_per_sentence": 9.605263157894736,
+      "character_count": 1918,
+      "hook": "I've got three boxes here",
+      "hook_length": 5,
+      "hook_strength": 0,
+      "engagement_score": 1,
+      "cta": "",
+      "uses_numbers": true,
+      "number_count": 10,
+      "emotional_intensity": 0,
+      "source_file": "What if everything you believed about building a successful business was wrongComment ‘Debate’ a.mp4"
+    },
+    {
+      "word_count": 411,
+      "sentence_count": 65,
+      "avg_words_per_sentence": 6.2272727272727275,
+      "character_count": 2452,
+      "hook": "Sam Altman killed millions of jobs with one insane update",
+      "hook_length": 10,
+      "hook_strength": 0,
+      "engagement_score": 1,
+      "cta": "",
+      "uses_numbers": true,
+      "number_count": 25,
+      "emotional_intensity": 1,
+      "source_file": "🚨 Sam Altman and OpenAI Just Made GPT-5 FREE 🚨This is the most powerful and maybe most dangero.mp4"
+    }
+  ],
+  "patterns": {
+    "common_bigrams": [
+      [
+        "it s",
+        11
+      ],
+      [
+        "if you",
+        9
+      ],
+      [
+        "you re",
+        9
+      ],
+      [
+        "i have",
+        9
+      ],
+      [
+        "gpt 5",
+        9
+      ],
+      [
+        "you can",
+        8
+      ],
+      [
+        "let s",
+        6
+      ],
+      [
+        "of them",
+        5
+      ],
+      [
+        "it to",
+        4
+      ],
+      [
+        "that s",
+        4
+      ],
+      [
+        "of the",
+        4
+      ],
+      [
+        "want to",
+        4
+      ],
+      [
+        "like a",
+        4
+      ],
+      [
+        "follow ups",
+        4
+      ],
+      [
+        "s a",
+        4
+      ],
+      [
+        "for you",
+        4
+      ],
+      [
+        "and you",
+        4
+      ],
+      [
+        "all of",
+        4
+      ],
+      [
+        "we can",
+        4
+      ],
+      [
+        "and the",
+        4
+      ]
+    ],
+    "common_trigrams": [
+      [
+        "in my bank",
+        4
+      ],
+      [
+        "my bank account",
+        4
+      ],
+      [
+        "let s get",
+        3
+      ],
+      [
+        "stuff we can",
+        3
+      ],
+      [
+        "we can do",
+        3
+      ],
+      [
+        "be in a",
+        3
+      ],
+      [
+        "000 in my",
+        3
+      ],
+      [
+        "if you want",
+        3
+      ],
+      [
+        "you want to",
+        3
+      ],
+      [
+        "one of them",
+        3
+      ],
+      [
+        "of them contains",
+        3
+      ],
+      [
+        "you don t",
+        2
+      ],
+      [
+        "so i have",
+        2
+      ],
+      [
+        "from that list",
+        2
+      ],
+      [
+        "in a great",
+        2
+      ]
+    ]
+  },
+  "timing": {
+    "avg_words_per_second": 3.8576281925350058,
+    "avg_hook_words": 11.125,
+    "avg_total_duration": 68.65624856948853
+  },
+  "averages": {
+    "word_count": 237.125,
+    "sentence_count": 33.75,
+    "hook_length": 11.75,
+    "engagement_score": 0.5,
+    "emotional_intensity": 0.25
+  }
+}

@@ -3,6 +3,15 @@ from openai import OpenAI
 from utils.config import OPENAI_API_KEY
 import calendar
 import re
+from pathlib import Path
+import json
+
+# Import transcript analysis functionality
+try:
+    from core.transcript_analyzer import TranscriptAnalyzer
+    TRANSCRIPT_ANALYSIS_AVAILABLE = True
+except ImportError:
+    TRANSCRIPT_ANALYSIS_AVAILABLE = False
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -26,8 +35,30 @@ def get_days_in_month(month_year_str):
     except:
         return 30  # Default fallback
 
-def generate_calendar(trends, month):
-    """Generate content calendar with proper day count for the month"""
+def get_transcript_insights():
+    """Get insights from analyzed video transcripts"""
+    if not TRANSCRIPT_ANALYSIS_AVAILABLE:
+        return None
+    
+    try:
+        analyzer = TranscriptAnalyzer()
+        insights = analyzer.load_insights()
+        
+        if insights and insights.get("individual_analyses"):
+            return {
+                "avg_word_count": int(insights.get("averages", {}).get("word_count", 50)),
+                "avg_hook_length": int(insights.get("averages", {}).get("hook_length", 8)),
+                "common_phrases": [p[0] for p in insights.get("patterns", {}).get("common_bigrams", [])[:10]],
+                "engagement_patterns": insights.get("averages", {}).get("engagement_score", 1),
+                "template": analyzer.generate_transcript_template(insights)
+            }
+    except Exception as e:
+        print(f"⚠️ Could not load transcript insights: {e}")
+    
+    return None
+
+def generate_calendar(trends, month, include_transcripts=True):
+    """Generate content calendar with proper day count for the month and optional transcripts"""
     
     if not trends:
         trends = ["AI tools for entrepreneurs", "business scaling strategies", "viral content formats"]
@@ -35,6 +66,9 @@ def generate_calendar(trends, month):
     # Get correct number of days for the month
     days_in_month = get_days_in_month(month)
     print(f"📅 Requesting {days_in_month} days of content for {month}")
+    
+    # Get transcript insights for better content generation
+    transcript_insights = get_transcript_insights() if include_transcripts else None
     
     # Use conservative token limits to stay well under 8192 total
     if days_in_month > 20:
@@ -44,12 +78,39 @@ def generate_calendar(trends, month):
         model = "gpt-4"
         max_tokens = 2500  # Conservative for smaller months
     
-    # Shorter, more focused prompt to reduce token usage
-    prompt = f"""Create {days_in_month} Instagram Reels for AI entrepreneurs ({month}).
+    # Enhanced prompt with transcript insights
+    base_format = "Day X | \"Title\" | Hook | Body | CTA | Format | Audio | Hashtags | Production | Optimization"
+    
+    if include_transcripts and transcript_insights:
+        # Include transcript column and insights
+        enhanced_format = base_format + " | Transcript"
+        
+        common_phrases_text = ", ".join(transcript_insights["common_phrases"][:5]) if transcript_insights["common_phrases"] else "use engaging language"
+        
+        prompt = f"""Create {days_in_month} Instagram Reels for AI entrepreneurs ({month}).
 
 Trends: {', '.join(trends[:3])}
 
-Format: Day X | "Title" | Hook | Body | CTA | Format | Audio | Hashtags | Production | Optimization
+TRANSCRIPT INSIGHTS (based on successful reels analysis):
+- Average script length: ~{transcript_insights["avg_word_count"]} words
+- Hook length: ~{transcript_insights["avg_hook_length"]} words
+- Successful phrases: {common_phrases_text}
+
+Format: {enhanced_format}
+
+For the Transcript column, create engaging 25-30 second scripts following this structure:
+- Hook (0-3s): {transcript_insights["avg_hook_length"]} words max - grab attention immediately
+- Body (3-20s): Main value/insight - conversational tone
+- CTA (20-30s): Clear call-to-action for engagement
+
+Generate ALL {days_in_month} days (no shortcuts). Topics: AI tools, automation, scaling."""
+    else:
+        # Standard prompt without transcripts
+        prompt = f"""Create {days_in_month} Instagram Reels for AI entrepreneurs ({month}).
+
+Trends: {', '.join(trends[:3])}
+
+Format: {base_format}
 
 Generate ALL {days_in_month} days (no shortcuts). Topics: AI tools, automation, scaling."""
 

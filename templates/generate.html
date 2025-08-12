@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Generating Calendar - AI Content Strategist{% endblock %}
+{% block title %}Generating Calendar - Content Strategist{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -10,12 +10,20 @@
                 <div class="card-body p-5 text-center">
                     <h2 class="mb-4">
                         <i class="fas fa-magic me-2 text-primary"></i>
+                        {% if is_refinement %}
+                        Refining Your Content Calendar
+                        {% else %}
                         Generating Your Content Calendar
+                        {% endif %}
                     </h2>
                     
                     <div class="mb-4">
                         <p class="lead">
+                            {% if is_refinement %}
+                            Refining and optimizing content for 
+                            {% else %}
                             Creating strategic content for 
+                            {% endif %}
                             <strong class="text-primary">{{ month }}</strong>
                         </p>
                         {% if raw_month != month %}
@@ -58,7 +66,7 @@
                         <div class="col-6 col-md-3 mb-3">
                             <div id="icon-ai" class="status-icon">
                                 <i class="fas fa-robot fa-2x text-muted"></i>
-                                <p class="small mt-2">AI Generation</p>
+                                <p class="small mt-2">Content Generation</p>
                             </div>
                         </div>
                         <div class="col-6 col-md-3 mb-3">
@@ -106,7 +114,7 @@
                             <span class="visually-hidden">Loading...</span>
                         </div>
                         <p class="text-muted">
-                            This may take 30-60 seconds depending on AI response time...
+                            This may take 30-60 seconds depending on system response time...
                         </p>
                     </div>
                 </div>
